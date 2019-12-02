@@ -1,0 +1,30 @@
+/* SECTION STYLES */
+.section__container {
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 10px 18px 10px 24px;
+  background-color: green;
+  display: flex;
+}
+
+.section__text__container {
+  display: inline-block;
+  line-height: 16px;
+  background-color: greenyellow;
+  text-align: left;
+  width: 270px;
+  height: 92px;
+}
+
+.section__image__container {
+  height: 92px;
+  width: 80px;
+  margin-left: 10px;
+  display: inline-block;
+}
+
+.section__image {
+  height: 92px;
+  width: 80px;
+  background-size: 80px 92px;
+}
