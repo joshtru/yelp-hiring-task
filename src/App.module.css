@@ -63,3 +63,25 @@ button:disabled {
 .search__input:focus {
   border-bottom: 2px solid#009484;
 }
+
+/* AUTOCOMPLETE BOX STYLES */
+.autocomplete__box {
+  background-color: #fff;
+  text-align: left;
+  padding-bottom: 0.1rem;
+  font-size: 1.4rem;
+  border-radius: 0 0 15px 15px;
+  color: #6e6e6e;
+}
+.autocomplete__box ul {
+  list-style: none;
+  padding: 0;
+}
+.autocomplete__box li {
+  padding: 0.25rem 1.5rem 0.25rem;
+}
+.autocomplete__box li:hover,
+.autocomplete__box li:active {
+  cursor: pointer;
+  background-color: #f3f3f3;
+}

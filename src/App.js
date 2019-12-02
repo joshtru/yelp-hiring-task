@@ -83,11 +83,23 @@ class App extends React.Component {
         </button>
         {/* SEARCH SECTION */}
         <div className={styles.search__container}>
-          <input
-            className={styles.search__input}
-            type="search"
-            placeholder="Search Restaurants"
-          />
+          <form>
+            <input
+              className={styles.search__input}
+              type="search"
+              placeholder="Search Restaurants"
+            />
+          </form>
+          <div className={styles.autocomplete__box}>
+            <ul>
+              <li>Hello</li>
+              <li>Hello</li>
+              <li>Hello</li>
+              <li>Hello</li>
+              <li>Hello</li>
+              <li>world</li>
+            </ul>
+          </div>
         </div>
         <div className={styles.map__container}>
           <GoogleMapReact
