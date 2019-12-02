@@ -52,7 +52,7 @@
   outline: none;
   background-color: #fff0;
   border-bottom: 2px solid #fff0;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in;
 }
 
 .search__input:focus {

@@ -6,7 +6,7 @@ import styles from "./App.module.css";
 import SideBar from "./components/sideBar/sideBar.component";
 import Search from "./components/search/search.component";
 
-const API_KEY = process.env.REACT_APP_API_KEY_SECRET;
+const API_KEY = process.env.REACT_APP_SECRET_MAP_GOOGLE;
 
 class App extends React.Component {
   static defaultProps = {
