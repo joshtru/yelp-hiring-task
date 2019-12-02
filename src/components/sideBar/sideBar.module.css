@@ -1,0 +1,9 @@
+/* SIDE BAR STYLES */
+.sideBar {
+  width: 408px;
+  height: 100%;
+  position: absolute;
+  z-index: 100;
+  background-color: #fff;
+  box-shadow: 1px 0px 10px #000;
+}
