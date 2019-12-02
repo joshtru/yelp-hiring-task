@@ -1,9 +1,10 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
 // IMPORTING STYLES
-import "./App.css";
+import styles from "./App.module.css";
 // IMPORTING COMPONENTS
 import SideBar from "./components/sideBar/sideBar.component";
+import Search from "./components/search/search.component";
 
 const API_KEY = process.env.REACT_APP_API_KEY_SECRET;
 
@@ -17,10 +18,20 @@ class App extends React.Component {
   };
   render() {
     return (
-      <div className="App">
+      <div className={styles.App}>
+        {/* SIDE BAR */}
         <SideBar />
-
-        <div className="map__container">
+        {/* LOCATION BUTTON */}
+        <button className={styles.location__button}>use my location</button>
+        {/* SEARCH SECTION */}
+        <div className={styles.search__container}>
+          <input
+            className={styles.search__input}
+            type="search"
+            placeholder="Search Restaurants"
+          />
+        </div>
+        <div className={styles.map__container}>
           <GoogleMapReact
             // bootstrapURLKeys={{ key: API_KEY }}
             defaultCenter={this.props.center}

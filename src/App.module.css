@@ -1,0 +1,60 @@
+.App {
+  text-align: center;
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* MAP CONTAINER */
+.map__container {
+  position: absolute;
+  /* z-index: 0; */
+  height: 100%;
+  width: 100%;
+}
+/* LOCATION BUTTON STYLES */
+.location__button {
+  text-transform: uppercase;
+  position: absolute;
+  z-index: 100;
+  top: 10vh;
+  left: 30%;
+  font-size: 1.1rem;
+  padding: 1.2rem 1rem;
+  border: none;
+  box-shadow: 1px 1px 5px #000;
+  background-color: #009484;
+  color: #fff;
+  transition: all 0.5s;
+}
+
+.location__button:hover,
+.location__button:active {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+/* SEARCH CONTAINER */
+.search__container {
+  position: absolute;
+  z-index: 100;
+  top: 10vh;
+  right: 25%;
+  background-color: #fff;
+  height: 100px;
+}
+/* SEARCH INPUT STYLES */
+.search__input {
+  margin: 1rem 1.5rem;
+  font-size: 1.5rem;
+  width: 400px;
+  border: none;
+  outline: none;
+  background-color: #fff0;
+  border-bottom: 2px solid #fff0;
+  transition: all 0.5s ease-in-out;
+}
+
+.search__input:focus {
+  border-bottom: 2px solid#009484;
+}
