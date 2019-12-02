@@ -33,6 +33,11 @@
   cursor: pointer;
   transform: scale(1.05);
 }
+button:disabled {
+  background-color: #cccc;
+  cursor: progress;
+  transform: scale(1.05);
+}
 
 /* SEARCH CONTAINER */
 .search__container {
