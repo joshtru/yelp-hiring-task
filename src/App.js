@@ -1,6 +1,7 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
 import axios from "axios";
+import Script from "react-load-script";
 // IMPORTING STYLES
 import styles from "./App.module.css";
 // IMPORTING COMPONENTS
@@ -10,19 +11,17 @@ const GOOGLE_KEY = process.env.REACT_APP_SECRET_MAP_GOOGLE;
 const YELP_KEY = process.env.REACT_APP_SECRET_YELP_KEY;
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      userLat: 36.280388,
-      userLong: -95.845398,
       error: null,
       gettingLocation: false,
       searchValue: "",
-      suggestions: {
-        businesses: [],
-        categories: [],
-        terms: []
-      }
+      businesses: [],
+      region: {},
+      city: "",
+      query: "",
+      hasMounted: false
     };
   }
   static defaultProps = {
@@ -32,6 +31,9 @@ class App extends React.Component {
     },
     zoom: 11
   };
+  componentDidMount() {
+    this.setState({ hasMounted: true });
+  }
   getLocation = () => {
     this.setState({ gettingLocation: true, error: null });
     if (navigator.geolocation) {
@@ -68,58 +70,94 @@ class App extends React.Component {
     }
     this.setState({ error: receivedError, gettingLocation: false });
   };
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log("Submitted");
+  // HANDLE SUBMIT
+  handleSubmit = event => {
+    event.preventDefault();
+    console.log(event.target.search.value);
   };
+  // HANDLE CHANGE
   handleChange = event => {
     const { value } = event.target;
     const { userLat, userLong } = this.state;
-    this.setState({ searchValue: value });
-    axios
-      .get(
-        `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/autocomplete`,
-        {
-          params: {
-            text: value
-            // latitude: userLat,
-            // longitude: userLong
-          },
-          headers: {
-            Authorization: `Bearer ${YELP_KEY}`
-          }
-        }
-      )
-      .then(response => {
-        this.setState({
-          suggestions: {
-            businesses: response.data.businesses,
-            categories: response.data.categories,
-            terms: response.data.terms
-          }
-        });
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(`ERROR: ${error}`);
-        this.setState({
-          suggestions: {
-            businesses: [],
-            categories: [],
-            terms: []
-          }
-        });
+    // this.setState({ searchValue: value });
+    // axios
+    //   .get(
+    //     `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses/search?`,
+    //     {
+    //       params: {
+    //         term: "restaurants",
+    //         location: value
+    //         // latitude: userLat,
+    //         // longitude: userLong
+    //       },
+    //       headers: {
+    //         Authorization: `Bearer ${YELP_KEY}`
+    //       }
+    //     }
+    //   )
+    //   .then(response => {
+    //     this.setState({
+    //       businesses: response.data.businesses,
+    //       region: response.data.region
+    //     });
+    //     console.log(response);
+    //   })
+    //   .catch(error => {
+    //     console.log(`ERROR: ${error}`);
+    //     this.setState({
+    //       businesses: [],
+    //       region: {}
+    //     });
+    //   });
+  };
+  // HANDLE SCRIPT
+  handleScriptLoad = () => {
+    // Declare Options For Autocomplete
+    const options = {
+      types: ["(cities)"]
+    }; // To disable any eslint 'google not defined' errors
+
+    // Initialize Google Autocomplete
+    /*global google*/
+
+    this.autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById("autocomplete"),
+      options
+    );
+
+    // Avoid paying for data that you don't need by restricting the set of
+    // place fields that are returned to just the address components and formatted
+    // address.
+    this.autocomplete.setFields(["address_components", "formatted_address"]);
+
+    // Fire Event when a suggested name is selected
+    this.autocomplete.addListener("place_changed", this.handlePlaceSelect);
+  };
+  // HANDLE PLACE SELECT
+  handlePlaceSelect = () => {
+    // Extract City From Address Object
+    const addressObject = this.autocomplete.getPlace();
+    const address = addressObject.address_components;
+
+    // Check if address is valid
+    if (address) {
+      // Set State
+      this.setState({
+        city: address[0].long_name,
+        query: addressObject.formatted_address
       });
+    }
   };
   render() {
     const {
       gettingLocation,
       error,
       searchValue,
-      suggestions: { businesses, terms, categories }
+      businesses,
+      query,
+      city
     } = this.state;
-    console.log(terms);
-    console.log(searchValue);
+    console.log(city);
     return (
       <div className={styles.App}>
         {/* SIDE BAR */}
@@ -141,49 +179,26 @@ class App extends React.Component {
         <div className={styles.search__container}>
           <form onSubmit={this.handleSubmit}>
             <input
+              id="autocomplete"
               className={styles.search__input}
               type="search"
               name="search"
-              onChange={this.handleChange}
               placeholder="Search Restaurants"
               autoComplete="off"
             />
           </form>
           <div className={styles.autocomplete__box}>
-            <ul>
-              {/* BUSINESSES */}
-              {businesses.map(value => (
-                <li
-                  key={value}
-                  onClick={() => this.setState({ searchValue: value })}
-                >
-                  {value}
-                </li>
-              ))}
-              {/* CATEGORIES */}
-              {categories.map(value => (
-                <li
-                  key={value.alias}
-                  onClick={() => this.setState({ searchValue: value.title })}
-                >
-                  {value.title}
-                </li>
-              ))}
-              {/* TERMS */}
-              {terms.map(value => (
-                <li
-                  key={value.text}
-                  onClick={() => this.setState({ searchValue: value.text })}
-                >
-                  {value.text}
-                </li>
-              ))}
-            </ul>
+            {this.hasMounted ? (
+              <Script
+                url={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&libraries=places`}
+                onLoad={this.handleScriptLoad}
+              />
+            ) : null}
           </div>
         </div>
         <div className={styles.map__container}>
           <GoogleMapReact
-            // bootstrapURLKeys={{ key: API_KEY }}
+            // bootstrapURLKeys={{ key: GOOGLE_KEY }}
             defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
           ></GoogleMapReact>
