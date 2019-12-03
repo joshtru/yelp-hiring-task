@@ -1,14 +1,11 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-import axios from "axios";
 import Script from "react-load-script";
 // IMPORTING STYLES
 import styles from "./App.module.css";
 // IMPORTING COMPONENTS
 import SideBar from "./components/sideBar/sideBar.component";
-
-const GOOGLE_KEY = process.env.REACT_APP_SECRET_MAP_GOOGLE;
-const YELP_KEY = process.env.REACT_APP_SECRET_YELP_KEY;
+import LocationButton from "./components/locationButton/locationButton.component";
 
 class App extends React.Component {
   constructor(props) {
@@ -31,46 +28,7 @@ class App extends React.Component {
     },
     zoom: 11
   };
-  componentDidMount() {}
-  UNSAFE_componentWillMount() {
-    this.setState({ hasMounted: true });
-  }
-  getLocation = () => {
-    this.setState({ gettingLocation: true, error: null });
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        console.log(position.coords.latitude);
-        console.log(position.coords.longitude);
-        this.setState({ gettingLocation: false, error: null });
-      }, this.locationError);
-    } else {
-      this.setState({
-        error: "Location unavailable",
-        gettingLocation: false
-      });
-    }
-  };
-  locationError = error => {
-    let receivedError = null;
-    switch (error.code) {
-      case error.PERMISSION_DENIED:
-        receivedError = "Location Denied";
-        break;
-      case error.POSITION_UNAVAILABLE:
-        receivedError = "Location unavailable";
-        break;
-      case error.TIMEOUT:
-        receivedError = "timed out";
-        break;
-      case error.UNKNOWN_ERROR:
-        receivedError = "error occured";
-        break;
-      default:
-        receivedError = "No location";
-        break;
-    }
-    this.setState({ error: receivedError, gettingLocation: false });
-  };
+
   // HANDLE SCRIPT
   handleScriptLoad = () => {
     // Declare Options For Autocomplete
@@ -80,8 +38,8 @@ class App extends React.Component {
 
     // Initialize Google Autocomplete
     /*global google*/ this.autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("autocomplete"),
-      options
+      document.getElementById("autocomplete")
+      // options
     );
     console.log(this.autocomplete);
 
@@ -99,7 +57,6 @@ class App extends React.Component {
     // Extract City From Address Object
     const addressObject = this.autocomplete.getPlace();
     const address = addressObject.address_components;
-
     // Check if address is valid
     if (address) {
       // Set State
@@ -110,32 +67,14 @@ class App extends React.Component {
     }
   };
   render() {
-    const {
-      gettingLocation,
-      error,
-      searchValue,
-      businesses,
-      query,
-      city
-    } = this.state;
+    const { query, city } = this.state;
     console.log(query, "City", city);
     return (
       <div className={styles.App}>
         {/* SIDE BAR */}
         <SideBar />
         {/* LOCATION BUTTON */}
-        <button
-          type="button"
-          className={styles.location__button}
-          onClick={() => this.getLocation()}
-          disabled={gettingLocation}
-        >
-          {gettingLocation
-            ? "getting location..."
-            : error
-            ? error
-            : "use my location"}
-        </button>
+        <LocationButton />
         {/* SEARCH SECTION */}
         <div className={styles.search__container}>
           <input
@@ -145,12 +84,12 @@ class App extends React.Component {
             placeholder="Search City"
           />
           {/* {this.hasMounted ? ( */}
-          <Script
+          {/* <Script
             type="text/javascript"
             url={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&libraries=places`}
             defer
             onLoad={this.handleScriptLoad}
-          />
+          /> */}
           {/* ) : null} */}
         </div>
         <div className={styles.map__container}>
