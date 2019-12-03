@@ -31,7 +31,8 @@ class App extends React.Component {
     },
     zoom: 11
   };
-  componentDidMount() {
+  componentDidMount() {}
+  UNSAFE_componentWillMount() {
     this.setState({ hasMounted: true });
   }
   getLocation = () => {
@@ -70,46 +71,6 @@ class App extends React.Component {
     }
     this.setState({ error: receivedError, gettingLocation: false });
   };
-  // HANDLE SUBMIT
-  handleSubmit = event => {
-    event.preventDefault();
-    console.log(event.target.search.value);
-  };
-  // HANDLE CHANGE
-  handleChange = event => {
-    const { value } = event.target;
-    const { userLat, userLong } = this.state;
-    // this.setState({ searchValue: value });
-    // axios
-    //   .get(
-    //     `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses/search?`,
-    //     {
-    //       params: {
-    //         term: "restaurants",
-    //         location: value
-    //         // latitude: userLat,
-    //         // longitude: userLong
-    //       },
-    //       headers: {
-    //         Authorization: `Bearer ${YELP_KEY}`
-    //       }
-    //     }
-    //   )
-    //   .then(response => {
-    //     this.setState({
-    //       businesses: response.data.businesses,
-    //       region: response.data.region
-    //     });
-    //     console.log(response);
-    //   })
-    //   .catch(error => {
-    //     console.log(`ERROR: ${error}`);
-    //     this.setState({
-    //       businesses: [],
-    //       region: {}
-    //     });
-    //   });
-  };
   // HANDLE SCRIPT
   handleScriptLoad = () => {
     // Declare Options For Autocomplete
@@ -118,12 +79,11 @@ class App extends React.Component {
     }; // To disable any eslint 'google not defined' errors
 
     // Initialize Google Autocomplete
-    /*global google*/
-
-    this.autocomplete = new google.maps.places.Autocomplete(
+    /*global google*/ this.autocomplete = new google.maps.places.Autocomplete(
       document.getElementById("autocomplete"),
       options
     );
+    console.log(this.autocomplete);
 
     // Avoid paying for data that you don't need by restricting the set of
     // place fields that are returned to just the address components and formatted
@@ -134,6 +94,7 @@ class App extends React.Component {
     this.autocomplete.addListener("place_changed", this.handlePlaceSelect);
   };
   // HANDLE PLACE SELECT
+
   handlePlaceSelect = () => {
     // Extract City From Address Object
     const addressObject = this.autocomplete.getPlace();
@@ -157,7 +118,7 @@ class App extends React.Component {
       query,
       city
     } = this.state;
-    console.log(city);
+    console.log(query, "City", city);
     return (
       <div className={styles.App}>
         {/* SIDE BAR */}
@@ -177,24 +138,20 @@ class App extends React.Component {
         </button>
         {/* SEARCH SECTION */}
         <div className={styles.search__container}>
-          <form onSubmit={this.handleSubmit}>
-            <input
-              id="autocomplete"
-              className={styles.search__input}
-              type="search"
-              name="search"
-              placeholder="Search Restaurants"
-              autoComplete="off"
-            />
-          </form>
-          <div className={styles.autocomplete__box}>
-            {this.hasMounted ? (
-              <Script
-                url={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&libraries=places`}
-                onLoad={this.handleScriptLoad}
-              />
-            ) : null}
-          </div>
+          <input
+            className={styles.search__input}
+            id="autocomplete"
+            type="search"
+            placeholder="Search City"
+          />
+          {/* {this.hasMounted ? ( */}
+          <Script
+            type="text/javascript"
+            url={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&libraries=places`}
+            defer
+            onLoad={this.handleScriptLoad}
+          />
+          {/* ) : null} */}
         </div>
         <div className={styles.map__container}>
           <GoogleMapReact
