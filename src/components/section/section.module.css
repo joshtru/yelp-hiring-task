@@ -3,17 +3,18 @@
   border-top: 1px solid #e6e6e6;
   border-bottom: 1px solid #e6e6e6;
   padding: 10px 18px 10px 24px;
-  background-color: green;
+  /* background-color: green; */
   display: flex;
+  font-size: 0.8rem;
 }
 
 .section__text__container {
   display: inline-block;
   line-height: 16px;
-  background-color: greenyellow;
+  /* background-color: greenyellow; */
   text-align: left;
   width: 270px;
-  height: 92px;
+  height: 100px;
 }
 
 .section__image__container {
@@ -26,5 +27,40 @@
 .section__image {
   height: 92px;
   width: 80px;
-  background-size: 80px 92px;
+  background-size: cover;
+}
+
+/* SECTION TITLE */
+.section__title {
+  margin: 0 0 0.4rem;
+}
+.section__rating {
+  margin: 0.2rem 0;
+}
+
+/* CATEGORIES STYLES */
+.categories {
+  margin: 0;
+}
+.categories span::after {
+  content: ", ";
+}
+.categories span:last-child::after {
+  content: "";
+}
+/* LOCATION STYLES */
+.location {
+  margin: 0.1rem 0 0;
+}
+/* CLOSE OR OPEN STYLES*/
+.isClosed {
+  margin: 0;
+}
+/* YELP LOGO */
+.yelp__logo__container {
+  height: 50px;
+  width: 70px;
+  background-color: red;
+  /* position: absolute;
+  right: 8rem; */
 }

@@ -6,4 +6,10 @@
   z-index: 100;
   background-color: #fff;
   box-shadow: 1px 0px 10px #000;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+/* HIDE SCROLL BAR */
+.sideBar::-webkit-scrollbar {
+  display: none;
 }

@@ -11,14 +11,14 @@ import {
 // GET API KEYS
 const YELP_KEY = process.env.REACT_APP_SECRET_YELP_KEY;
 
-export function* getRestaurantsNearBy({ location }) {
+export function* getRestaurantsNearBy({ city }) {
   try {
-    const response = axios.get(
+    const response = yield axios.get(
       `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses/search?`,
       {
         params: {
           term: "restaurants",
-          location
+          location: city
           // latitude: userLat,
           // longitude: userLong
         },

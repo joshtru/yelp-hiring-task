@@ -1,16 +1,34 @@
 import React from "react";
-// IMPORTING STYLES
-import styles from "./sideBar.module.css";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+// IMPORTING SELECTORS
+import { selectListOfRestaurants } from "../../redux/restaurants/restaurants.reselect";
 // IMPORTING COMPONENTS
 import Section from "../section/section.component";
-const SideBar = () => (
+// IMPORTING STYLES
+import styles from "./sideBar.module.css";
+
+const SideBar = ({ listOfRestaurants }) => (
   <div className={styles.sideBar}>
-    <Section
-      imageUrl={
-        "https://lh5.googleusercontent.com/p/AF1QipNQsmg82SNaQXoRdFJnQbFEaBI6LSf-TyJvZWUS=w80-h92-p-k-no"
-      }
-    />
+    {listOfRestaurants
+      ? listOfRestaurants.businesses.map(list => (
+          <Section
+            key={list.id}
+            name={list.name}
+            rating={list.rating}
+            review_count={list.review_count}
+            categories={list.categories}
+            isClosed={list.is_closed}
+            location={list.location.address1}
+            imageUrl={`${list.image_url}`}
+          />
+        ))
+      : null}
   </div>
 );
 
-export default SideBar;
+const mapStateToProps = createStructuredSelector({
+  listOfRestaurants: selectListOfRestaurants
+});
+
+export default connect(mapStateToProps)(SideBar);
