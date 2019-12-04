@@ -31,10 +31,9 @@ const ratings = {
 };
 
 const RatingBar = ({ rating = null }) => {
-  //   console.log(Rating45);
   return (
     <span style={{ margin: "0 0.3rem" }}>
-      <img src={ratings[rating]} alt="rating" />
+      <img style={{ height: ".71rem" }} src={ratings[rating]} alt="rating" />
     </span>
   );
 };

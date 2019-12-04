@@ -18,7 +18,7 @@ const Section = ({
     <div className={styles.section__text__container}>
       <h3 className={styles.section__title}>{name}</h3>
       <p className={styles.section__rating}>
-        {rating}
+        <span>{rating}</span>
         <RatingBar rating={rating} />
         <span>({review_count})</span>
       </p>

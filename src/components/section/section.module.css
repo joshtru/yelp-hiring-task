@@ -8,6 +8,7 @@
   position: relative;
 }
 
+/* SECTION TEXT CONTAINER STYLES */
 .section__text__container {
   display: inline-block;
   line-height: 16px;
@@ -16,13 +17,14 @@
   height: 100px;
 }
 
+/* SECTION IMAGE CONTAINER STYLES */
 .section__image__container {
   height: 95px;
   width: 80px;
   margin-left: 10px;
   display: inline-block;
 }
-
+/* SECTION IMAGE IN THE CONTAINER STYLES */
 .section__image {
   height: 95px;
   width: 80px;
@@ -30,10 +32,12 @@
   background-position: center;
 }
 
-/* SECTION TITLE */
+/* SECTION TITLE STYLES*/
 .section__title {
   margin: 0 0 0.4rem;
 }
+
+/* SECTION RATING STYLES */
 .section__rating {
   margin: 0.2rem 0;
 }
@@ -48,15 +52,18 @@
 .categories span:last-child::after {
   content: "";
 }
+
 /* LOCATION STYLES */
 .location {
   margin: 0.1rem 0 0;
 }
+
 /* CLOSE OR OPEN STYLES*/
 .isClosed {
   margin: 0;
 }
-/* YELP LOGO */
+
+/* YELP LOGO STYLES */
 .yelp__logo__container {
   height: 30px;
   width: 50px;
