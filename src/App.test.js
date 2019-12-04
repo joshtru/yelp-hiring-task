@@ -1,9 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import { shallow, render } from "enzyme";
+import React from "react";
+import App from "./App";
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+describe("App Component", () => {
+  test("Expect App component to return no values", () => {
+    expect(shallow(<App />)).toEqual({});
+  });
+  test("Expect component to match with snapshot", () => {
+    expect(shallow(<App />)).toMatchSnapshot();
+  });
 });
