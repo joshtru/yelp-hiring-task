@@ -20,7 +20,8 @@ const SideBar = ({ listOfRestaurants }) => (
             categories={list.categories}
             isClosed={list.is_closed}
             location={list.location.address1}
-            imageUrl={`${list.image_url}`}
+            imageUrl={list.image_url}
+            linkToYelp={list.url}
           />
         ))
       : null}

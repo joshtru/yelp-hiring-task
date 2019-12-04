@@ -69,4 +69,5 @@
 .yelp__logo__container:hover,
 .yelp__logo__container:active {
   cursor: pointer;
+  transform: scale(1.2);
 }

@@ -11,6 +11,7 @@ const Section = ({
   location,
   isClosed,
   categories = [],
+  linkToYelp,
   imageUrl
 }) => (
   <div className={styles.section__container}>
@@ -28,10 +29,12 @@ const Section = ({
       </p>
       <p className={styles.location}>{location}</p>
       <p className={styles.isClosed}>{isClosed ? "Close" : "Open"}</p>
-      <div
-        className={styles.yelp__logo__container}
-        style={{ backgroundImage: `url(${YelpLogo})` }}
-      ></div>
+      <a href={linkToYelp} target="_blank" rel="noreferrer noopener">
+        <div
+          className={styles.yelp__logo__container}
+          style={{ backgroundImage: `url(${YelpLogo})` }}
+        ></div>
+      </a>
     </div>
     {/* IMAGE SECTION */}
     <div className={styles.section__image__container}>
