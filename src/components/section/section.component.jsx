@@ -28,9 +28,10 @@ const Section = ({
       </p>
       <p className={styles.location}>{location}</p>
       <p className={styles.isClosed}>{isClosed ? "Close" : "Open"}</p>
-      <div className={styles.yelp__logo__container}>
-        <img className={styles.yelp__logo} src={YelpLogo} alt="yelp logo" />
-      </div>
+      <div
+        className={styles.yelp__logo__container}
+        style={{ backgroundImage: `url(${YelpLogo})` }}
+      ></div>
     </div>
     {/* IMAGE SECTION */}
     <div className={styles.section__image__container}>
