@@ -31,10 +31,10 @@ const ratings = {
 };
 
 const RatingBar = ({ rating = null }) => {
-  return (
+  return rating ? (
     <span style={{ margin: "0 0.3rem" }}>
       <img style={{ height: ".71rem" }} src={ratings[rating]} alt="rating" />
     </span>
-  );
+  ) : null;
 };
 export default RatingBar;
