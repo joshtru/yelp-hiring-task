@@ -18,6 +18,7 @@ const SideBar = ({ listOfRestaurants }) => (
       </div>
       <div className={styles.locationAndToggle__container}>
         <LocationButton />
+        <LocationButton />
       </div>
     </div>
     {listOfRestaurants

@@ -28,6 +28,9 @@
   padding: 1rem;
   margin-bottom: 1.5rem;
 }
+.locationAndToggle__container {
+  display: inline-block;
+}
 
 /* MEDIA QUERY */
 /* Small devices (portrait tablets and large phones, 600px and up) */
