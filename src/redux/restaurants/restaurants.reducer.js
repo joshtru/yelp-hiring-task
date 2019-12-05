@@ -858,7 +858,12 @@ const INITIAL_STATE = {
 const restaurantsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     //   GET LIST OF RESTAURANTS NEAR BY FROM YELP
-    case RestaurantsTypes.GET_YELP_RESTAURANTS_START:
+    case RestaurantsTypes.GET_YELP_RESTAURANTS_START_BY_SEARCH:
+      return {
+        ...state,
+        gettingRestaurants: true
+      };
+    case RestaurantsTypes.GET_YELP_RESTAURANTS_START_BY_COORD:
       return {
         ...state,
         gettingRestaurants: true

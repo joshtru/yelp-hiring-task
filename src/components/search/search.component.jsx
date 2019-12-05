@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Script from "react-load-script";
 
 // IMPORTING REDUX ACTIONS
-import { getYelpRestaurantsStart } from "../../redux/restaurants/restaurants.actions";
+import { getYelpRestaurantsStartBySearch } from "../../redux/restaurants/restaurants.actions";
 // IMPORTING STYLES
 import styles from "./search.module.css";
 const GOOGLE_KEY = process.env.REACT_APP_SECRET_MAP_GOOGLE;
@@ -62,7 +62,7 @@ const Search = ({ getRestaurantsNearBy }) => {
   );
 };
 const mapDispatchToProps = dispatch => ({
-  getRestaurantsNearBy: city => dispatch(getYelpRestaurantsStart(city))
+  getRestaurantsNearBy: city => dispatch(getYelpRestaurantsStartBySearch(city))
 });
 
 export default connect(null, mapDispatchToProps)(Search);
