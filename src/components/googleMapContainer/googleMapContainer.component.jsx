@@ -1,21 +1,37 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import GoogleMapReact from "google-map-react";
+import GoogleMapReact, { Marker } from "google-map-react";
 // IMPORTING SELECTORS
 import { selectListOfRestaurants } from "../../redux/restaurants/restaurants.reselect";
 
 const GoogleMapContainer = ({ listOfRestaurants }) => {
   const renderMarkers = (map, maps) => {
-    console.log(listOfRestaurants);
-    listOfRestaurants.businesses.map(restaurant => {
+    listOfRestaurants.businesses.map((restaurant, index) => {
+      /*global google*/
       let marker = new maps.Marker({
         position: {
           lat: restaurant.coordinates.latitude,
           lng: restaurant.coordinates.longitude
         },
         map,
-        title: restaurant.name
+        title: restaurant.name,
+        label: {
+          color: "white",
+          fontWeight: "bold",
+          text: restaurant.name
+        },
+        icon: {
+          labelOrigin: new google.maps.Point(11, 50),
+          url: `https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red${index +
+            1}.png`,
+          size: new google.maps.Size(22, 40),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(11, 40)
+        }
+      });
+      marker.addListener("click", function() {
+        window.open(restaurant.url);
       });
       return marker;
     });
@@ -28,14 +44,11 @@ const GoogleMapContainer = ({ listOfRestaurants }) => {
           lat: 35.468,
           lng: -97.521
         }}
-        defaultZoom={13}
+        st
+        defaultZoom={14}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
-      >
-        {/* {listOfRestaurants.businesses.map(restaurant => (
-              <span></span>
-            ))} */}
-      </GoogleMapReact>
+      ></GoogleMapReact>
     </div>
   );
 };
