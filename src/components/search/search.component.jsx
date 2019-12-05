@@ -45,7 +45,7 @@ const Search = ({ getRestaurantsNearBy }) => {
     }
   };
   return (
-    <div className={styles.search__container}>
+    <div>
       <input
         className={styles.search__input}
         id="autocomplete"

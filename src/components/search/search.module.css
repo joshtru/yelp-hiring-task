@@ -1,17 +1,7 @@
-/* SEARCH CONTAINER */
-.search__container {
-  position: absolute;
-  z-index: 100;
-  top: 10vh;
-  right: 25%;
-  background-color: #fff;
-  height: 70px;
-}
 /* SEARCH INPUT STYLES */
 .search__input {
-  margin: 1rem 1.5rem 0.2rem;
   font-size: 1.5rem;
-  width: 400px;
+  width: 100%;
   border: none;
   outline: none;
   background-color: #fff0;

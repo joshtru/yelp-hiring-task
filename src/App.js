@@ -12,9 +12,13 @@ const App = () => (
     {/* SIDE BAR to display list of found business*/}
     <SideBar />
     {/* LOCATION BUTTON to get user's location */}
-    <LocationButton />
+    <div className={styles.locationButton__container}>
+      <LocationButton />
+    </div>
     {/* SEARCH SECTION to search for location */}
-    <Search />
+    <div className={styles.search__container}>
+      <Search />
+    </div>
     {/* GOOGLE MAP CONTAINER to display google map and map markers */}
     <GoogleMapContainer />
   </div>
