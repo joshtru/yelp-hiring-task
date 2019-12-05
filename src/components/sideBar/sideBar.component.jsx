@@ -5,23 +5,11 @@ import { createStructuredSelector } from "reselect";
 import { selectListOfRestaurants } from "../../redux/restaurants/restaurants.reselect";
 // IMPORTING COMPONENTS
 import Section from "../section/section.component";
-import LocationButton from "../locationButton/locationButton.component";
-import Search from "../search/search.component";
 // IMPORTING STYLES
 import styles from "./sideBar.module.css";
-import ToggleButton from "../toggleButton/toggleButton.component";
 
 const SideBar = ({ listOfRestaurants }) => (
   <div className={styles.sideBar}>
-    <div className={styles.sideBar__top__container}>
-      <div className={styles.search__container}>
-        <Search />
-      </div>
-      <div className={styles.locationAndToggle__container}>
-        <LocationButton large={false} />
-        <ToggleButton />
-      </div>
-    </div>
     {listOfRestaurants
       ? listOfRestaurants.businesses.map(list => (
           <Section

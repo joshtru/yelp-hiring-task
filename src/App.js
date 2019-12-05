@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./App.module.css";
 // IMPORTING COMPONENTS
 import SideBar from "./components/sideBar/sideBar.component";
+import SideBarHeader from "./components/sideBarHeader/sideBarHeader.component";
 import LocationButton from "./components/locationButton/locationButton.component";
 import Search from "./components/search/search.component";
 import GoogleMapContainer from "./components/googleMapContainer/googleMapContainer.component";
@@ -10,6 +11,7 @@ import GoogleMapContainer from "./components/googleMapContainer/googleMapContain
 const App = () => (
   <div className={styles.App}>
     {/* SIDE BAR to display list of found business*/}
+    <SideBarHeader />
     <SideBar />
     {/* LOCATION BUTTON to get user's location */}
     <div className={styles.locationButton__container}>
