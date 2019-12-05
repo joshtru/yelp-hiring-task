@@ -16,12 +16,17 @@ const LocationButton = ({
   getLocation,
   gettingLocation,
   coordinates,
-  error
+  error,
+  large = true
 }) => {
   return (
     <button
       type="button"
-      className={styles.location__button}
+      className={`
+        ${styles.location__button} ${
+        large ? styles.largeButton : styles.smallButton
+      }
+          `}
       onClick={() => getLocation()}
       disabled={gettingLocation}
     >

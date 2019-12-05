@@ -1,0 +1,47 @@
+/* TOGGLE BUTTON STYLES */
+
+.toggleButton input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.toggleButton label {
+  cursor: pointer;
+  width: 50px;
+  height: 20px;
+  margin-bottom: -0.3rem;
+  background: #ccc;
+  display: inline-block;
+  border-radius: 100px;
+  position: relative;
+}
+
+.toggleButton label:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+.toggleButton input:checked + label {
+  background: #7ed0db;
+}
+
+.toggleButton input:checked + label:after {
+  left: calc(100% - 0px);
+  transform: translateX(-100%);
+}
+
+.toggleButton label:active:after {
+  width: 40px;
+}
+.button__text {
+  margin-left: 0.5rem;
+  font-weight: 600;
+}

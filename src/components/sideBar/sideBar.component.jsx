@@ -9,6 +9,7 @@ import LocationButton from "../locationButton/locationButton.component";
 import Search from "../search/search.component";
 // IMPORTING STYLES
 import styles from "./sideBar.module.css";
+import ToggleButton from "../toggleButton/toggleButton.component";
 
 const SideBar = ({ listOfRestaurants }) => (
   <div className={styles.sideBar}>
@@ -17,8 +18,8 @@ const SideBar = ({ listOfRestaurants }) => (
         <Search />
       </div>
       <div className={styles.locationAndToggle__container}>
-        <LocationButton />
-        <LocationButton />
+        <LocationButton large={false} />
+        <ToggleButton />
       </div>
     </div>
     {listOfRestaurants

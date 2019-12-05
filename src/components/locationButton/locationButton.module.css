@@ -1,12 +1,18 @@
 /* LOCATION BUTTON STYLES */
 .location__button {
   text-transform: uppercase;
-  padding: 1.2rem 1rem;
   border: none;
   box-shadow: 1px 1px 5px #000;
   background-color: #009484;
   color: #fff;
   transition: all 0.5s;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.largeButton {
+  padding: 1.2rem 1rem;
+  font-size: 1.2rem;
 }
 
 .location__button:hover,
