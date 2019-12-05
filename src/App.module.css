@@ -11,7 +11,7 @@
   top: 5vh;
   left: 43%;
   font-size: 1.1rem;
-  visibility: hidden;
+  display: none;
 }
 .search__container {
   position: absolute;
@@ -21,16 +21,16 @@
   width: 30%;
   padding: 0.65rem 1.5rem;
   background-color: #fff;
-  visibility: hidden;
+  display: none;
 }
 
 /* MEDIA QUERY */
-/* Small devices (portrait tablets and large phones, 600px and up) */
+/* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   .locationButton__container {
-    visibility: visible;
+    display: block;
   }
   .search__container {
-    visibility: visible;
+    display: block;
   }
 }
