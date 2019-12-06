@@ -9,12 +9,11 @@
   font-size: 0.75rem;
   font-weight: 600;
 }
-
+/* STYLES FOR LARGE BUTTON */
 .largeButton {
   padding: 1.2rem 1rem;
   font-size: 1.2rem;
 }
-
 .location__button:hover,
 .location__button:active {
   cursor: pointer;

@@ -15,7 +15,6 @@ import styles from "./locationButton.module.css";
 const LocationButton = ({
   getLocation,
   gettingLocation,
-  coordinates,
   error,
   large = true
 }) => {

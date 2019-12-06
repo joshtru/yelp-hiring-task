@@ -2,12 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import GoogleMapReact from "google-map-react";
-/*global google*/
 // IMPORTING SELECTORS
 import {
   selectListOfRestaurants,
-  selectMapZoom,
-  selectGettingRestaurants
+  selectMapZoom
 } from "../../redux/restaurants/restaurants.reselect";
 import { selectUserCoordinates } from "../../redux/location/location.reselect";
 // IMPORTING REDUX ACTIONS
@@ -19,7 +17,6 @@ const GoogleMapContainer = ({
   setUserCoordinates,
   userCoordinates,
   listOfRestaurants,
-  gettingRestaurants,
   mapZoom
 }) => {
   return (
@@ -29,7 +26,6 @@ const GoogleMapContainer = ({
         center={userCoordinates}
         zoom={mapZoom}
         yesIWantToUseGoogleMapApiInternals
-        // onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
         onClick={map => {
           const { lat, lng } = map;
           setUserCoordinates({ lat, lng });
@@ -54,8 +50,7 @@ const GoogleMapContainer = ({
 const mapStateToProps = createStructuredSelector({
   listOfRestaurants: selectListOfRestaurants,
   userCoordinates: selectUserCoordinates,
-  mapZoom: selectMapZoom,
-  gettingRestaurants: selectGettingRestaurants
+  mapZoom: selectMapZoom
 });
 const mapDispatchToProps = dispatch => ({
   setUserCoordinates: coords => dispatch(setUserCoordinates(coords))

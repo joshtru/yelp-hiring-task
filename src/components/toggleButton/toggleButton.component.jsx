@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 // IMPORTING REDUX ACTIONS
 import { toggleMap } from "../../redux/map/map.action";
+// IMPORTING STYLES
 import styles from "./toggleButton.module.css";
 
 const ToggleButton = ({ toggleMap }) => (
