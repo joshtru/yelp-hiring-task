@@ -2,68 +2,60 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import GoogleMapReact from "google-map-react";
+/*global google*/
 // IMPORTING SELECTORS
-import { selectListOfRestaurants } from "../../redux/restaurants/restaurants.reselect";
+import {
+  selectListOfRestaurants,
+  selectMapZoom,
+  selectGettingRestaurants
+} from "../../redux/restaurants/restaurants.reselect";
+import { selectUserCoordinates } from "../../redux/location/location.reselect";
 // IMPORTING REDUX ACTIONS
 import { setUserCoordinates } from "../../redux/location/location.actions";
+// IMPORTING COMPONENTS
+import MapMarker from "../mapMarker/mapMarker.component";
 const GOOGLE_KEY = process.env.REACT_APP_SECRET_MAP_GOOGLE;
-const GoogleMapContainer = ({ listOfRestaurants, setUserCoordinates }) => {
-  // RENDER MARKER FOR USE ON GOOGLE MAP
-  const renderMarkers = (map, maps) => {
-    return listOfRestaurants
-      ? listOfRestaurants.businesses.map((restaurant, index) => {
-          /*global google*/
-          let marker = new maps.Marker({
-            position: {
-              lat: restaurant.coordinates.latitude,
-              lng: restaurant.coordinates.longitude
-            },
-            map,
-            title: restaurant.name,
-            label: {
-              color: "black",
-              fontWeight: "bold",
-              text: restaurant.name
-            },
-            icon: {
-              labelOrigin: new google.maps.Point(11, 50),
-              url: `https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red${index +
-                1}.png`,
-              size: new google.maps.Size(22, 40),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(11, 40)
-            }
-          });
-          // Listen for click on marker to redirect to yelp site
-          marker.addListener("click", function() {
-            window.open(restaurant.url);
-          });
-          return marker;
-        })
-      : null;
-  };
-  const showCoord = (map, maps) => {
-    const { lat, lng } = map;
-    setUserCoordinates({ lat, lng });
-  };
+const GoogleMapContainer = ({
+  setUserCoordinates,
+  userCoordinates,
+  listOfRestaurants,
+  gettingRestaurants,
+  mapZoom
+}) => {
   return (
     <div style={{ position: "absolute", height: "100%", width: "100%" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: GOOGLE_KEY }}
-        defaultCenter={{
-          lat: 35.468,
-          lng: -97.521
-        }}
-        defaultZoom={14}
+        center={userCoordinates}
+        zoom={mapZoom}
         yesIWantToUseGoogleMapApiInternals
-        onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
-        onClick={(map, maps) => showCoord(map, maps)}
-      ></GoogleMapReact>
+        // onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
+        onClick={map => {
+          const { lat, lng } = map;
+          setUserCoordinates({ lat, lng });
+        }}
+      >
+        {listOfRestaurants !== null
+          ? listOfRestaurants.businesses.map((restaurant, index) => (
+              <MapMarker
+                key={restaurant.id}
+                lat={restaurant.coordinates.latitude}
+                lng={restaurant.coordinates.longitude}
+                name={restaurant.name}
+                link={restaurant.url}
+                number={index + 1}
+              />
+            ))
+          : null}
+      </GoogleMapReact>
     </div>
   );
 };
 const mapStateToProps = createStructuredSelector({
-  listOfRestaurants: selectListOfRestaurants
+  listOfRestaurants: selectListOfRestaurants,
+  userCoordinates: selectUserCoordinates,
+  mapZoom: selectMapZoom,
+  gettingRestaurants: selectGettingRestaurants
 });
 const mapDispatchToProps = dispatch => ({
   setUserCoordinates: coords => dispatch(setUserCoordinates(coords))
