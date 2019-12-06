@@ -1,7 +1,7 @@
 /* SIDE BAR STYLES */
 .sideBar {
   width: 408px;
-  height: 100%;
+  height: 100vh;
   position: absolute;
   z-index: 100;
   background-color: #fff;
@@ -12,4 +12,13 @@
 /* HIDE SCROLL BAR */
 .sideBar::-webkit-scrollbar {
   display: none;
+}
+
+/* MEDIA QUERY */
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+  .sideBar {
+    width: 100%;
+    height: 100vh;
+  }
 }

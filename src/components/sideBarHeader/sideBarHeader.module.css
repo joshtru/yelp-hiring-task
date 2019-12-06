@@ -1,0 +1,27 @@
+/* SIDE BAR TOP CONTAINER */
+.sideBar__top__container {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 200;
+  background-color: #00bbd5;
+  padding: 2rem 1rem 1rem;
+  box-shadow: 1px 0px 10px #000;
+}
+.search__container {
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+}
+.locationAndToggle__container {
+  display: flex;
+  justify-content: space-evenly;
+  color: #fff;
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .sideBar__top__container {
+    display: none;
+  }
+}

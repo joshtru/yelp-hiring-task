@@ -1,68 +1,88 @@
 import React from "react";
 import { connect } from "react-redux";
-import Script from "react-load-script";
-
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng
+} from "react-places-autocomplete";
+import { createStructuredSelector } from "reselect";
+// IMPORTING RESELECT
+import { selectUserCity } from "../../redux/location/location.reselect";
 // IMPORTING REDUX ACTIONS
-import { getYelpRestaurantsStart } from "../../redux/restaurants/restaurants.actions";
+import {
+  setUserCity,
+  setUserCoordinates
+} from "../../redux/location/location.actions";
+import { getYelpRestaurantsByCityStart } from "../../redux/restaurants/restaurants.actions";
 // IMPORTING STYLES
 import styles from "./search.module.css";
-const GOOGLE_KEY = process.env.REACT_APP_SECRET_MAP_GOOGLE;
-const Search = ({ getRestaurantsNearBy }) => {
-  // HANDLE SCRIPT
-  let autocomplete = null;
-  const handleScriptLoad = () => {
-    // Declare Options For Autocomplete
-    const options = {
-      types: ["(cities)"]
-    }; // To disable any eslint 'google not defined' errors
+import { ReactComponent as SearchIcon } from "../../assets/icons/search-icon.svg";
 
-    // Initialize Google Autocomplete
-    /*global google*/ autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("autocomplete"),
-      options
-    );
-    console.log(autocomplete);
-
-    // Avoid paying for data that you don't need by restricting the set of
-    // place fields that are returned to just the address components and formatted
-    // address.
-    autocomplete.setFields(["address_components", "formatted_address"]);
-
-    // Fire Event when a suggested name is selected
-    autocomplete.addListener("place_changed", handlePlaceSelect);
+const Search = ({
+  setUserCity,
+  city,
+  setUserCoordinates,
+  getRestaurantsByCity
+}) => {
+  const handleChange = address => {
+    setUserCity(address);
   };
-  // HANDLE PLACE SELECT
 
-  const handlePlaceSelect = () => {
-    // Extract City From Address Object
-    const addressObject = autocomplete.getPlace();
-    const address = addressObject.address_components;
-    // Check if address is valid
-    if (address) {
-      const city = address[0].long_name;
-      const query = addressObject.formatted_address;
-      getRestaurantsNearBy(query);
-    }
+  const handleSelect = address => {
+    geocodeByAddress(address)
+      .then(results => {
+        setUserCity(results[0].formatted_address);
+        return getLatLng(results[0]);
+      })
+      .then(latLng => setUserCoordinates(latLng))
+      .catch(error => console.error("Error", error));
   };
+
   return (
-    <div className={styles.search__container}>
-      <input
-        className={styles.search__input}
-        id="autocomplete"
-        type="search"
-        placeholder="Search City"
-      />
-      {/* <Script
-        type="text/javascript"
-        url={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_KEY}&libraries=places`}
-        defer
-        onLoad={handleScriptLoad}
-      /> */}
-    </div>
+    <PlacesAutocomplete
+      value={city}
+      onChange={handleChange}
+      onSelect={handleSelect}
+    >
+      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+        <div>
+          <div className={styles.search__bar__container}>
+            <SearchIcon
+              className={styles.search__icon}
+              onClick={() => getRestaurantsByCity()}
+            />
+            <input
+              className={styles.search__input}
+              {...getInputProps({
+                placeholder: "Search Places ..."
+              })}
+            />
+          </div>
+          <div className={styles.autocomplete__box}>
+            <ul>
+              {suggestions.map(suggestion => {
+                return (
+                  <li
+                    key={suggestion.id}
+                    {...getSuggestionItemProps(suggestion)}
+                  >
+                    {suggestion.description}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      )}
+    </PlacesAutocomplete>
   );
 };
+const mapStateToProps = createStructuredSelector({
+  city: selectUserCity
+});
 const mapDispatchToProps = dispatch => ({
-  getRestaurantsNearBy: city => dispatch(getYelpRestaurantsStart(city))
+  setUserCity: city => dispatch(setUserCity(city)),
+  setUserCoordinates: coords => dispatch(setUserCoordinates(coords)),
+  getRestaurantsByCity: () => dispatch(getYelpRestaurantsByCityStart())
 });
 
-export default connect(null, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

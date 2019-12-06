@@ -3,15 +3,22 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 // IMPORTING SELECTORS
 import { selectListOfRestaurants } from "../../redux/restaurants/restaurants.reselect";
+import { selectShowMap } from "../../redux/map/map.reselect";
 // IMPORTING COMPONENTS
 import Section from "../section/section.component";
 // IMPORTING STYLES
 import styles from "./sideBar.module.css";
 
-const SideBar = ({ listOfRestaurants }) => (
-  <div className={styles.sideBar}>
-    {listOfRestaurants
-      ? listOfRestaurants.businesses.map(list => (
+const SideBar = ({ listOfRestaurants, showMap }) => {
+  return !showMap & (listOfRestaurants !== null) ? (
+    <div className={styles.sideBar}>
+      {listOfRestaurants.businesses.length === 0 ? (
+        <div>
+          <h3>No Restaurants Found</h3>
+          <p>Check another location</p>
+        </div>
+      ) : (
+        listOfRestaurants.businesses.map(list => (
           <Section
             key={list.id}
             name={list.name}
@@ -24,12 +31,14 @@ const SideBar = ({ listOfRestaurants }) => (
             linkToYelp={list.url}
           />
         ))
-      : null}
-  </div>
-);
+      )}
+    </div>
+  ) : null;
+};
 
 const mapStateToProps = createStructuredSelector({
-  listOfRestaurants: selectListOfRestaurants
+  listOfRestaurants: selectListOfRestaurants,
+  showMap: selectShowMap
 });
 
 export default connect(mapStateToProps)(SideBar);

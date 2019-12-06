@@ -4,6 +4,7 @@ import YelpLogo from "../../assets/yelp-logo.jpg";
 import RatingBar from "../ratingBar/ratingBar.component";
 // IMPORTING STYLES
 import styles from "./section.module.css";
+
 const Section = ({
   name,
   rating,

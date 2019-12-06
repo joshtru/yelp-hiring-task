@@ -1,0 +1,9 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50">
+  <title>Location Marker</title>
+  <desc>A solid styled icon from Orion Icon Library.</desc>
+  <path data-name="layer1"
+  d="M32 62c0-17.1 16.3-25.2 17.8-39.7A18 18 0 1 0 14 20a17.7 17.7 0 0 0 .2 2.2C15.7 36.8 32 44.9 32 62z"
+  fill="#c51010"></path>
+</svg>

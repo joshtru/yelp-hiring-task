@@ -4,3 +4,33 @@
   height: 100vh;
   width: 100vw;
 }
+/* LOCATION BUTTON CONTAINER  STYLES*/
+.locationButton__container {
+  position: absolute;
+  z-index: 100;
+  top: 5vh;
+  left: 42vw;
+  font-size: 1.1rem;
+  display: none;
+}
+.search__container {
+  position: absolute;
+  z-index: 100;
+  top: 5vh;
+  right: 7vw;
+  width: 25vw;
+  padding: 0.65rem 1.5rem;
+  background-color: #fff;
+  display: none;
+}
+
+/* MEDIA QUERY */
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .locationButton__container {
+    display: block;
+  }
+  .search__container {
+    display: block;
+  }
+}
