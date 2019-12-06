@@ -10,23 +10,21 @@ import Section from "../section/section.component";
 import styles from "./sideBar.module.css";
 
 const SideBar = ({ listOfRestaurants, showMap }) => {
-  return !showMap ? (
+  return !showMap & (listOfRestaurants !== null) ? (
     <div className={styles.sideBar}>
-      {listOfRestaurants
-        ? listOfRestaurants.businesses.map(list => (
-            <Section
-              key={list.id}
-              name={list.name}
-              rating={list.rating}
-              review_count={list.review_count}
-              categories={list.categories}
-              isClosed={list.is_closed}
-              location={list.location.address1}
-              imageUrl={list.image_url}
-              linkToYelp={list.url}
-            />
-          ))
-        : null}
+      {listOfRestaurants.businesses.map(list => (
+        <Section
+          key={list.id}
+          name={list.name}
+          rating={list.rating}
+          review_count={list.review_count}
+          categories={list.categories}
+          isClosed={list.is_closed}
+          location={list.location.address1}
+          imageUrl={list.image_url}
+          linkToYelp={list.url}
+        />
+      ))}
     </div>
   ) : null;
 };
