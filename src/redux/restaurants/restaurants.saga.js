@@ -6,6 +6,7 @@ import RestaurantsTypes from "./restaurants.types";
 import LocationTypes from "../location/location.types";
 // IMPORTING RESTAURANTS ACTIONS
 import {
+  getYelpRestaurantsStart,
   getYelpRestaurantsSuccess,
   getYelpRestaurantsFailure
 } from "./restaurants.actions";
@@ -14,10 +15,11 @@ const YELP_KEY = process.env.REACT_APP_SECRET_YELP_KEY;
 
 // MAKE API CALL BASED ON AVAILABLE PARAMETER
 export function* getRestaurantsNearBy({ payload }) {
+  yield put(getYelpRestaurantsStart());
   try {
     let response;
-    const url = `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses/search?`;
-    const term = "restaurants";
+    const url = yield `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses/search?`;
+    const term = yield "restaurants";
     //  MAKE API CALL WITH COORDINATES
     response = yield axios.get(url, {
       params: {
