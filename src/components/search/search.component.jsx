@@ -18,9 +18,7 @@ import { ReactComponent as SearchIcon } from "../../assets/icons/search-icon.svg
 
 const Search = ({ setUserCity, city, setUserCoordinates }) => {
   const handleChange = address => {
-    // this.setState({ address });
     setUserCity(address);
-    console.log(address);
   };
 
   const handleSelect = address => {

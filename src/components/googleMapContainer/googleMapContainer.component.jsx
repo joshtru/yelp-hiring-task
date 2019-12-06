@@ -8,35 +8,37 @@ const GOOGLE_KEY = process.env.REACT_APP_SECRET_MAP_GOOGLE;
 const GoogleMapContainer = ({ listOfRestaurants }) => {
   // RENDER MARKER FOR USE ON GOOGLE MAP
   const renderMarkers = (map, maps) => {
-    listOfRestaurants.businesses.map((restaurant, index) => {
-      /*global google*/
-      let marker = new maps.Marker({
-        position: {
-          lat: restaurant.coordinates.latitude,
-          lng: restaurant.coordinates.longitude
-        },
-        map,
-        title: restaurant.name,
-        label: {
-          color: "black",
-          fontWeight: "bold",
-          text: restaurant.name
-        },
-        icon: {
-          labelOrigin: new google.maps.Point(11, 50),
-          url: `https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red${index +
-            1}.png`,
-          size: new google.maps.Size(22, 40),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(11, 40)
-        }
-      });
-      // Listen for click on marker to redirect to yelp site
-      marker.addListener("click", function() {
-        window.open(restaurant.url);
-      });
-      return marker;
-    });
+    return listOfRestaurants
+      ? listOfRestaurants.businesses.map((restaurant, index) => {
+          /*global google*/
+          let marker = new maps.Marker({
+            position: {
+              lat: restaurant.coordinates.latitude,
+              lng: restaurant.coordinates.longitude
+            },
+            map,
+            title: restaurant.name,
+            label: {
+              color: "black",
+              fontWeight: "bold",
+              text: restaurant.name
+            },
+            icon: {
+              labelOrigin: new google.maps.Point(11, 50),
+              url: `https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red${index +
+                1}.png`,
+              size: new google.maps.Size(22, 40),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(11, 40)
+            }
+          });
+          // Listen for click on marker to redirect to yelp site
+          marker.addListener("click", function() {
+            window.open(restaurant.url);
+          });
+          return marker;
+        })
+      : null;
   };
   const showCoord = (map, maps) => {
     console.log(map);
@@ -44,7 +46,7 @@ const GoogleMapContainer = ({ listOfRestaurants }) => {
   return (
     <div style={{ position: "absolute", height: "100%", width: "100%" }}>
       <GoogleMapReact
-        // bootstrapURLKeys={{ key: GOOGLE_KEY }}
+        bootstrapURLKeys={{ key: GOOGLE_KEY }}
         defaultCenter={{
           lat: 35.468,
           lng: -97.521

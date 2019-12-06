@@ -17,7 +17,13 @@ export function* getUserLocation() {
   try {
     if (navigator.geolocation) {
       const location = yield call(extractUserLocation);
-      yield put(getLocationSuccess(location.coords));
+
+      yield put(
+        getLocationSuccess({
+          lat: location.coords.latitude,
+          lng: location.coords.longitude
+        })
+      );
     } else {
       yield put(getLocationFailure("Location unavailable"));
     }

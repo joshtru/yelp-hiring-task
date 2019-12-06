@@ -1,12 +1,7 @@
 import RestaurantsTypes from "./restaurants.types";
 // GET LIST OF YELP RESTAURANTS NEAR BY
-export const getYelpRestaurantsStartBySearch = city => ({
-  type: RestaurantsTypes.GET_YELP_RESTAURANTS_START_BY_SEARCH,
-  city
-});
-export const getYelpRestaurantsStartByCoord = coords => ({
-  type: RestaurantsTypes.GET_YELP_RESTAURANTS_START_BY_COORD,
-  coords
+export const getYelpRestaurantsStart = () => ({
+  type: RestaurantsTypes.GET_YELP_RESTAURANTS_START
 });
 export const getYelpRestaurantsSuccess = result => ({
   type: RestaurantsTypes.GET_YELP_RESTAURANTS_SUCCESS,
