@@ -2,7 +2,7 @@ import LocationTypes from "./location.types";
 
 const INITIAL_STATE = {
   gettingLocation: false,
-  coordinates: null,
+  coordinates: { lat: 0.0, lng: 0.0 },
   city: "",
   error: null
 };
