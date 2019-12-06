@@ -10,3 +10,7 @@ export const selectListOfRestaurants = createSelector(
   selectRestaurants,
   restaurants => restaurants.listOfRestaurants
 );
+export const selectMapZoom = createSelector(
+  selectRestaurants,
+  location => location.mapZoom
+);

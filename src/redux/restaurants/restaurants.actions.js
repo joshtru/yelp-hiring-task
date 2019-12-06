@@ -1,5 +1,8 @@
 import RestaurantsTypes from "./restaurants.types";
 // GET LIST OF YELP RESTAURANTS NEAR BY
+export const getYelpRestaurantsStart = () => ({
+  type: RestaurantsTypes.GET_YELP_RESTAURANTS_START
+});
 export const getYelpRestaurantsByCityStart = () => ({
   type: RestaurantsTypes.GET_YELP_RESTAURANTS_BY_CITY_START
 });
