@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import GoogleMapReact, { Marker } from "google-map-react";
+import GoogleMapReact from "google-map-react";
 // IMPORTING SELECTORS
 import { selectListOfRestaurants } from "../../redux/restaurants/restaurants.reselect";
-
+const GOOGLE_KEY = process.env.REACT_APP_SECRET_MAP_GOOGLE;
 const GoogleMapContainer = ({ listOfRestaurants }) => {
+  // RENDER MARKER FOR USE ON GOOGLE MAP
   const renderMarkers = (map, maps) => {
     listOfRestaurants.businesses.map((restaurant, index) => {
       /*global google*/
@@ -17,7 +18,7 @@ const GoogleMapContainer = ({ listOfRestaurants }) => {
         map,
         title: restaurant.name,
         label: {
-          color: "white",
+          color: "black",
           fontWeight: "bold",
           text: restaurant.name
         },
@@ -30,11 +31,15 @@ const GoogleMapContainer = ({ listOfRestaurants }) => {
           anchor: new google.maps.Point(11, 40)
         }
       });
+      // Listen for click on marker to redirect to yelp site
       marker.addListener("click", function() {
         window.open(restaurant.url);
       });
       return marker;
     });
+  };
+  const showCoord = (map, maps) => {
+    console.log(map);
   };
   return (
     <div style={{ position: "absolute", height: "100%", width: "100%" }}>
@@ -44,10 +49,10 @@ const GoogleMapContainer = ({ listOfRestaurants }) => {
           lat: 35.468,
           lng: -97.521
         }}
-        st
         defaultZoom={14}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
+        onClick={(map, maps) => showCoord(map, maps)}
       ></GoogleMapReact>
     </div>
   );
