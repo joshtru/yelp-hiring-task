@@ -9,7 +9,7 @@
   position: absolute;
   z-index: 100;
   top: 5vh;
-  left: 43%;
+  left: 42vw;
   font-size: 1.1rem;
   display: none;
 }
@@ -17,8 +17,8 @@
   position: absolute;
   z-index: 100;
   top: 5vh;
-  right: 8%;
-  width: 30%;
+  right: 7vw;
+  width: 25vw;
   padding: 0.65rem 1.5rem;
   background-color: #fff;
   display: none;
