@@ -1,4 +1,4 @@
-import { all, put, call, takeLatest } from "redux-saga/effects";
+import { all, put, call, takeLatest, select } from "redux-saga/effects";
 import axios from "axios";
 
 // IMPORTING RESTAURANTS ACTION TYPES
@@ -45,7 +45,45 @@ export function* onGetRestaurantsNearBy() {
   yield takeLatest(LocationTypes.GET_LOCATION_SUCCESS, getRestaurantsNearBy);
 }
 
+export function* getRestaurantsByCity() {
+  try {
+    const location = yield select();
+    const {
+      location: { city }
+    } = location;
+    if (city !== "") {
+      let response;
+      const url = `${"https://cors-anywhere.herokuapp.com/"}https://api.yelp.com/v3/businesses/search?`;
+      const term = "restaurants";
+      //  MAKE API CALL WITH COORDINATES
+      response = yield axios.get(url, {
+        params: {
+          term,
+          location: city
+        },
+        headers: {
+          Authorization: `Bearer ${YELP_KEY}`
+        }
+      });
+      if (response.status === 200) {
+        yield put(getYelpRestaurantsSuccess(response.data));
+      } else {
+        yield put(getYelpRestaurantsFailure(response));
+      }
+    }
+  } catch (error) {
+    yield put(getYelpRestaurantsFailure(error));
+  }
+}
+
+export function* onGetRestaurantsByCity() {
+  yield takeLatest(
+    RestaurantsTypes.GET_YELP_RESTAURANTS_BY_CITY_START,
+    getRestaurantsByCity
+  );
+}
+
 // EXPORT ALL GETS WHERE NEEDED LIKE ROOT SAGA
 export function* restaurantsSagas() {
-  yield all([call(onGetRestaurantsNearBy)]);
+  yield all([call(onGetRestaurantsNearBy), call(onGetRestaurantsByCity)]);
 }

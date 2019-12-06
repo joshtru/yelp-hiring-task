@@ -12,11 +12,17 @@ import {
   setUserCity,
   setUserCoordinates
 } from "../../redux/location/location.actions";
+import { getYelpRestaurantsByCityStart } from "../../redux/restaurants/restaurants.actions";
 // IMPORTING STYLES
 import styles from "./search.module.css";
 import { ReactComponent as SearchIcon } from "../../assets/icons/search-icon.svg";
 
-const Search = ({ setUserCity, city, setUserCoordinates }) => {
+const Search = ({
+  setUserCity,
+  city,
+  setUserCoordinates,
+  getRestaurantsByCity
+}) => {
   const handleChange = address => {
     setUserCity(address);
   };
@@ -40,7 +46,10 @@ const Search = ({ setUserCity, city, setUserCoordinates }) => {
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div>
           <div className={styles.search__bar__container}>
-            <SearchIcon className={styles.search__icon} />
+            <SearchIcon
+              className={styles.search__icon}
+              onClick={() => getRestaurantsByCity()}
+            />
             <input
               className={styles.search__input}
               {...getInputProps({
@@ -72,7 +81,8 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = dispatch => ({
   setUserCity: city => dispatch(setUserCity(city)),
-  setUserCoordinates: coords => dispatch(setUserCoordinates(coords))
+  setUserCoordinates: coords => dispatch(setUserCoordinates(coords)),
+  getRestaurantsByCity: () => dispatch(getYelpRestaurantsByCityStart())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
