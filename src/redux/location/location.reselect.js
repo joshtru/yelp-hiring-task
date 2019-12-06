@@ -14,3 +14,11 @@ export const selectLocationError = createSelector(
   selectLocation,
   location => location.error
 );
+export const selectUserCity = createSelector(
+  selectLocation,
+  location => location.city
+);
+export const selectUserCoordinates = createSelector(
+  selectLocation,
+  location => location.coordinates
+);
