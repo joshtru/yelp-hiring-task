@@ -35,7 +35,6 @@ export function* getRestaurantsNearBy({ payload }) {
     } else {
       yield put(getYelpRestaurantsFailure(response));
     }
-    console.log(response);
   } catch (error) {
     yield put(getYelpRestaurantsFailure(error));
   }

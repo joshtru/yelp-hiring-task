@@ -4,8 +4,10 @@ import { createStructuredSelector } from "reselect";
 import GoogleMapReact from "google-map-react";
 // IMPORTING SELECTORS
 import { selectListOfRestaurants } from "../../redux/restaurants/restaurants.reselect";
+// IMPORTING REDUX ACTIONS
+import { setUserCoordinates } from "../../redux/location/location.actions";
 const GOOGLE_KEY = process.env.REACT_APP_SECRET_MAP_GOOGLE;
-const GoogleMapContainer = ({ listOfRestaurants }) => {
+const GoogleMapContainer = ({ listOfRestaurants, setUserCoordinates }) => {
   // RENDER MARKER FOR USE ON GOOGLE MAP
   const renderMarkers = (map, maps) => {
     return listOfRestaurants
@@ -41,7 +43,8 @@ const GoogleMapContainer = ({ listOfRestaurants }) => {
       : null;
   };
   const showCoord = (map, maps) => {
-    console.log(map);
+    const { lat, lng } = map;
+    setUserCoordinates({ lat, lng });
   };
   return (
     <div style={{ position: "absolute", height: "100%", width: "100%" }}>
@@ -62,4 +65,7 @@ const GoogleMapContainer = ({ listOfRestaurants }) => {
 const mapStateToProps = createStructuredSelector({
   listOfRestaurants: selectListOfRestaurants
 });
-export default connect(mapStateToProps)(GoogleMapContainer);
+const mapDispatchToProps = dispatch => ({
+  setUserCoordinates: coords => dispatch(setUserCoordinates(coords))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(GoogleMapContainer);
