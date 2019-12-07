@@ -30,5 +30,5 @@ $ npm start
 
 ## Prerequisites
 
-- An [API KEY FROM GOOGLE](https://developers.google.com/maps/) is needed to get the full functionality of the map. If no key is provided, the map will default to development mode
-- An [API KEY FROM YELP](https://www.yelp.com/developers/documentation/v3/get_started) is also needed to get results from yelp as the app depends on the yelp api to get information on restaurants nearby.
+- [API KEY FROM GOOGLE](https://developers.google.com/maps/) is needed to get the full functionality of the map. If no key is provided, the map will default to development mode
+- [API KEY FROM YELP](https://www.yelp.com/developers/documentation/v3/get_started) is also needed to get results from yelp as the app depends on the yelp api to get information on restaurants nearby.
