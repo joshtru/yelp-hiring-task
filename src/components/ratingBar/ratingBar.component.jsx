@@ -31,7 +31,7 @@ const ratings = {
 };
 
 const RatingBar = ({ rating = null }) => {
-  return rating || rating <= 5 || rating >= 0 ? (
+  return rating || (rating <= 5) & (rating >= 0) ? (
     <span style={{ margin: "0 0.3rem" }}>
       <img style={{ height: ".71rem" }} src={ratings[rating]} alt="rating" />
     </span>

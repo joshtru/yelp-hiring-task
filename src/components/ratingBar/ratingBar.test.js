@@ -2,7 +2,7 @@ import { shallow } from "enzyme";
 import React from "react";
 import RatingBar from "./ratingBar.component";
 describe("Rating Star Bar Component", () => {
-  test("Matches snapshot", () => {
+  test("Renders without crashing", () => {
     expect(shallow(<RatingBar />)).toMatchSnapshot();
   });
   test("Expecting component to render", () => {

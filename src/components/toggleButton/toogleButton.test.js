@@ -2,25 +2,22 @@ import { shallow } from "enzyme";
 import React from "react";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
-import Search from "./search.component";
+import ToggleButton from "./toggleButton.component";
 
-describe("Search Component", () => {
+describe("Google Map Container Component", () => {
   const mockStore = configureStore();
   let wrapper;
   beforeEach(() => {
     const mockProps = mockStore({
-      getLocation: jest.fn(),
-      gettingLocation: false,
-      coordinates: null,
-      error: null
+      toggleMap: jest.fn()
     });
     wrapper = shallow(
       <Provider store={mockProps}>
-        <Search />
+        <ToggleButton />
       </Provider>
     );
   });
   test("Renders without crashing", () => {
-    expect(wrapper).toMatchSnapshot();
+    expect(shallow(<wrapper />)).toMatchSnapshot();
   });
 });
