@@ -2,7 +2,7 @@
 
 The Yelp Hiring Task is a web app for searching and getting results on restaurants nearby desired location.
 
-[LIVE PREVIEW](https://yelp-hirin-task.herokuapp.com)
+[LIVE PREVIEW](https://yelp-hiring-task.herokuapp.com)
 
 # Technologies
 
